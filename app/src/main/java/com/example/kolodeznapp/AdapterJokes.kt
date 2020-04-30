@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kolodeznapp.API.JokeApi
 import com.example.kolodeznapp.model.Joke
 
-class AdapterJokes(private val jokes: Array<Joke>):
+class AdapterJokes(private val jokes: Array<Joke>, private val dbApi: JokeApi):
     RecyclerView.Adapter<AdapterJokes.ViewHolder>() {
     private lateinit var mTitleItem: TextView
 
@@ -28,18 +29,19 @@ class AdapterJokes(private val jokes: Array<Joke>):
     }
 
 
-    inner class ViewHolder(v: View): RecyclerView.ViewHolder(v)
+    inner class ViewHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener
     {
         init {
-            v.setOnClickListener {
 
-            }
         }
 
         fun bind(position: Int){
             mTitleItem.text = jokes[position].title
         }
 
+        override fun onClick(v: View?) {
+            TODO("Not yet implemented")
+        }
 
 
     }

@@ -2,7 +2,6 @@ package com.example.kolodeznapp.dbapi
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.kolodeznapp.API.JokeApi
@@ -12,8 +11,6 @@ import com.example.kolodeznapp.model.Joke
 class JokeDatabaseHelper(context: Context):
     SQLiteOpenHelper(context, DATABASE_NAME,
     null, DATABASE_VERSION), JokeApi {
-    private val dbWrite = writableDatabase
-    private val dbRead = readableDatabase
 
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_TABLE =
@@ -41,26 +38,30 @@ class JokeDatabaseHelper(context: Context):
     }
 
     override fun editJoke(joke: Joke) {
-        TODO("Not yet implemented")
+        val values = ContentValues()
+        values.put(COLS_TITLE, joke.title)
+        values.put(COLS_CONTENT, joke.jokeContent)
+        val where = "${joke.id} = $COLS_ID"
+        writableDatabase.update(TABLE_NAME, values, where, null)
     }
 
     override fun addJoke(joke: Joke) {
         val values = ContentValues()
         values.put(COLS_TITLE, joke.title)
         values.put(COLS_CONTENT, joke.jokeContent)
-        joke.id = dbWrite.insert(TABLE_NAME, null, values)
+        joke.id = writableDatabase.insert(TABLE_NAME, null, values)
     }
 
-    override fun getJokeById(id: Int): Joke {
-        TODO("Not yet implemented")
+    override fun getJokeById(id: Long): Joke {
+        val j = Joke(id, "", "")
+        return j
     }
 
     override fun getAllJoke(): Array<Joke> {
-        val c: Cursor = dbRead.query(TABLE_NAME, null,
+        val c = readableDatabase.query(TABLE_NAME, null,
             null, null, null, null, null)
         var jokeArray = emptyArray<Joke>()
         if (c.moveToFirst()) {
-            // определяем номера столбцов по имени в выборке
             val idColsIndex = c.getColumnIndex(COLS_ID)
             val titleColsIndex = c.getColumnIndex(COLS_TITLE)
             val contentColIndex = c.getColumnIndex(COLS_CONTENT)

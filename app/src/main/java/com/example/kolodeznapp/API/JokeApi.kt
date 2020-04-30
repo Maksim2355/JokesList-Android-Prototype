@@ -17,7 +17,7 @@ interface JokeApi {
 
     fun addJoke(joke: Joke)
 
-    fun getJokeById(id: Int): Joke
+    fun getJokeById(id: Long): Joke
 
     fun getAllJoke(): Array<Joke>
 }

@@ -32,7 +32,7 @@ class ListJokesFragment : Fragment(), UpdateAdapter {
         listRecycler = v.findViewById<RecyclerView>(R.id.recycler_jokes_list)
         val layoutManager = LinearLayoutManager(context)
         listRecycler.layoutManager = layoutManager
-        dbApi = JokeDatabaseHelper(activity!!)
+        dbApi = JokeDatabaseHelper(requireActivity())
         dbDataList = dbApi.getAllJoke()
         updateListJoke()
         // Inflate the layout for this fragment
@@ -51,7 +51,7 @@ class ListJokesFragment : Fragment(), UpdateAdapter {
 
     override fun updateListJoke() {
         dbDataList = dbApi.getAllJoke()
-        adapter = AdapterJokes(dbDataList)
+        adapter = AdapterJokes(dbDataList, dbApi)
         listRecycler.adapter = adapter
     }
 }

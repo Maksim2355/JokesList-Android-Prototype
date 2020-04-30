@@ -1,7 +1,7 @@
 package com.example.kolodeznapp.model
 
 
-data class Joke(var id: Long, val title: String, var jokeContent: String) {
+data class Joke(var id: Long, var title: String, var jokeContent: String) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
