@@ -45,7 +45,7 @@ class ListJokesFragment : Fragment(), UpdateAdapter {
         btn.setOnClickListener {
             val addJokeDialog =
                 AddJokeDialog(this)
-            fragmentManager?.let { it1 -> addJokeDialog.show(it1, "custom") }
+            parentFragmentManager.let { it1 -> addJokeDialog.show(it1, "custom") }
         }
     }
 

@@ -30,16 +30,16 @@ class AddJokeDialog(private val listJokesFragment: Fragment) : DialogFragment(),
         savedInstanceState: Bundle?
     ): View? {
         updateList = listJokesFragment as UpdateAdapter
-        dbAPI = JokeDatabaseHelper(activity!!) as JokeApi
-        val dialog: Dialog = dialog!!
-        dialog.setTitle("Add joke")
+        dbAPI = JokeDatabaseHelper(requireActivity())
         val v: View = inflater.inflate(R.layout.dialog_add_joke, null)
+
         mBtnOk = v.findViewById(R.id.btn_ok)
         mBtnNone = v.findViewById(R.id.btn_cancel)
         mEditTitleJoke = v.findViewById(R.id.title_joke)
         mEditJoke = v.findViewById(R.id.joke_add)
         mBtnOk.setOnClickListener(this)
         mBtnNone.setOnClickListener(this)
+
         return v
     }
 
@@ -56,7 +56,7 @@ class AddJokeDialog(private val listJokesFragment: Fragment) : DialogFragment(),
                 dismiss()
             }
             R.id.btn_cancel -> {
-                super.onCancel(dialog!!);
+                dialog!!.cancel()
             }
         }
     }
