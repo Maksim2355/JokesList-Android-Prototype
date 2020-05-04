@@ -11,7 +11,7 @@ import com.example.kolodeznapp.model.Joke
  */
 interface JokeApi {
 
-    fun deleteJoke(id: Int)
+    fun deleteJoke(id: Long)
 
     fun editJoke(joke: Joke)
 

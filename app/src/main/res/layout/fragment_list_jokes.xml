@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:padding="5dp"
+            android:padding="8dp"
             app:backgroundTint="@color/colorPrimary"
             app:fabAlignmentMode="center"
             app:navigationIcon="@drawable/ic_menu_24px" />

@@ -33,8 +33,8 @@ class JokeDatabaseHelper(context: Context):
         const val COLS_CONTENT = DbSchema.JokesTable.Cols.CONTENT
     }
 
-    override fun deleteJoke(id: Int) {
-        TODO()
+    override fun deleteJoke(id: Long) {
+        writableDatabase.delete(TABLE_NAME, "$id = $COLS_ID", null)
     }
 
     override fun editJoke(joke: Joke) {

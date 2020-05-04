@@ -32,7 +32,6 @@ class AddJokeDialog(private val listJokesFragment: Fragment) : DialogFragment(),
         updateList = listJokesFragment as UpdateAdapter
         dbAPI = JokeDatabaseHelper(requireActivity())
         val v: View = inflater.inflate(R.layout.dialog_add_joke, null)
-
         mBtnOk = v.findViewById(R.id.btn_ok)
         mBtnNone = v.findViewById(R.id.btn_cancel)
         mEditTitleJoke = v.findViewById(R.id.title_joke)
