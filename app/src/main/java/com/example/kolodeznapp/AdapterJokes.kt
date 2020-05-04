@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kolodeznapp.API.JokeApi
 import com.example.kolodeznapp.UI.UpdateAdapter
+import com.example.kolodeznapp.dialog.AddJokeDialog
+import com.example.kolodeznapp.dialog.EditJokeDialog
 import com.example.kolodeznapp.model.Joke
 import java.sql.Time
 import java.util.concurrent.TimeUnit
@@ -28,6 +30,7 @@ class AdapterJokes(private val jokes: Array<Joke>, private val dbApi: JokeApi, p
     private lateinit var mBtnDelete: ImageButton
     private lateinit var mBtnEdit: ImageButton
     private lateinit var mBtnItemExtension: ImageButton
+
     private lateinit var updateAdapter: UpdateAdapter
     private lateinit var animRotate: Animation
     private lateinit var animTranslate: Animation
@@ -44,6 +47,7 @@ class AdapterJokes(private val jokes: Array<Joke>, private val dbApi: JokeApi, p
         mBtnEdit = v.findViewById(R.id.btnEditItem)
         mBtnItemExtension = v.findViewById(R.id.item_extension)
         updateAdapter = fragment as UpdateAdapter
+        
         animRotate = AnimationUtils.loadAnimation(context, R.anim.rotate)
         animTranslate = AnimationUtils.loadAnimation(context, R.anim.translate)
 
@@ -71,21 +75,24 @@ class AdapterJokes(private val jokes: Array<Joke>, private val dbApi: JokeApi, p
         }
 
         override fun onClick(v: View?) {
+            val mContextItem = view.findViewById<TextView>(R.id.content_joke)
             when (v!!.id) {
                 R.id.item_extension -> {
-                    if (mContentItem.visibility == GONE){
+                    if (mContextItem.visibility == GONE){
                         v.startAnimation(animRotate)
                         v.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_24px)
-                        mContentItem.visibility = VISIBLE
-                        mContentItem.text = jokes[adapterPosition].jokeContent
+
+                        mContextItem.visibility = VISIBLE
+                        mContextItem.text = jokes[adapterPosition].jokeContent
                     }else{
                         v.startAnimation(animRotate)
                         v.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_24px)
-                        mContentItem.visibility = GONE
+                        mContextItem.visibility = GONE
                     }
                 }
                 R.id.btnEditItem -> {
-
+                    val editJokeDialog = EditJokeDialog(jokes[adapterPosition])
+                    fragment.parentFragmentManager.let { it1 -> editJokeDialog.show(it1, "custom 2") }
                 }
                 R.id.btnDelItem->{
                     view.startAnimation(animTranslate)
